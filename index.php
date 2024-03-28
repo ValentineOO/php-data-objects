@@ -17,6 +17,7 @@ $pdo = new PDO($dsn, $username, $password);
 
 // set the default query to fetch obj
 $pdo->setAttribute(pdo::ATTR_DEFAULT_FETCH_MODE, pdo::FETCH_OBJ);
+$pdo->setAttribute(pdo::ATTR_EMULATE_PREPARES, false);
 
 //PDO Query
 // $stmt = $pdo->query('SELECT * FROM posts');
@@ -44,11 +45,12 @@ $pdo->setAttribute(pdo::ATTR_DEFAULT_FETCH_MODE, pdo::FETCH_OBJ);
 $author = 'Sarah Johnson';
 $is_published = true;
 $id = 1;
+$limit = 1;
 
-// $sql = 'SELECT * FROM posts WHERE author = ?';
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute([$author]);
-// $posts = $stmt->fetchAll();
+$sql = 'SELECT * FROM posts WHERE author = ? && is_published = ?  LIMIT ?';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$author, $is_published, $limit]);
+$posts = $stmt->fetchAll();
 
 //Named Params
 // $sql = 'SELECT * FROM posts WHERE author = :author && is_published = :is_published';
@@ -57,9 +59,9 @@ $id = 1;
 // $posts = $stmt->fetchAll();
 
 
-// foreach ($posts as $post) {
-//     echo $post->title . '<br>';
-// }
+foreach ($posts as $post) {
+    echo $post->title . '<br>';
+}
 
 //FETCH SINGLE POST
 // $sql = 'SELECT * FROM posts WHERE id = :id';
@@ -104,12 +106,12 @@ $id = 1;
 // echo 'Post Deleted';
 
 // SEARCH DATA
-$search = "%power%";
-$sql = 'SELECT * FROM posts WHERE title LIKE ?';
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$search]);
-$posts = $stmt->fetchAll();
+// $search = "%power%";
+// $sql = 'SELECT * FROM posts WHERE title LIKE ?';
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute([$search]);
+// $posts = $stmt->fetchAll();
 
-foreach ($posts as $post) {
-    echo $post->title . '<br>';
-}
+// foreach ($posts as $post) {
+//     echo $post->title . '<br>';
+// }
