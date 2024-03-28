@@ -87,10 +87,18 @@ $id = 1;
 // echo 'Post Added';
 
 // UPDATE DATA
-$id = 1;
-$body = 'This is an updated post.';
+// $id = 1;
+// $body = 'This is an updated post.';
 
-$sql = 'UPDATE posts SET body = :body WHERE id=:id';
+// $sql = 'UPDATE posts SET body = :body WHERE id=:id';
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute(['body' => $body,  'id' => $id]);
+// echo 'Post Updated';
+
+//DELETE DATA
+$id = 5;
+
+$sql = 'DELETE FROM posts WHERE id=:id';
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['body' => $body,  'id' => $id]);
-echo 'Post Updated';
+$stmt->execute(['id' => $id]);
+echo 'Post Deleted';
