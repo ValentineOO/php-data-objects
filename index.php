@@ -96,9 +96,20 @@ $id = 1;
 // echo 'Post Updated';
 
 //DELETE DATA
-$id = 5;
+// $id = 5;
 
-$sql = 'DELETE FROM posts WHERE id=:id';
+// $sql = 'DELETE FROM posts WHERE id=:id';
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute(['id' => $id]);
+// echo 'Post Deleted';
+
+// SEARCH DATA
+$search = "%power%";
+$sql = 'SELECT * FROM posts WHERE title LIKE ?';
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['id' => $id]);
-echo 'Post Deleted';
+$stmt->execute([$search]);
+$posts = $stmt->fetchAll();
+
+foreach ($posts as $post) {
+    echo $post->title . '<br>';
+}
