@@ -77,11 +77,20 @@ $id = 1;
 // echo $postCount;
 
 // INSERT DATA
-$title = 'The Science of Positive Thinking';
-$body = 'Incorporating positive thinking into daily life can yield remarkable benefits. By maintaining an optimistic outlook, individuals can enhance resilience, boost mood, and improve overall well-being. Practicing gratitude, visualization, and affirmations fosters a positive mindset, empowering individuals to overcome challenges and achieve their goals with confidence and enthusiasm.';
-$author = 'Jessica Williams';
+// $title = 'The Science of Positive Thinking';
+// $body = 'Incorporating positive thinking into daily life can yield remarkable benefits. By maintaining an optimistic outlook, individuals can enhance resilience, boost mood, and improve overall well-being. Practicing gratitude, visualization, and affirmations fosters a positive mindset, empowering individuals to overcome challenges and achieve their goals with confidence and enthusiasm.';
+// $author = 'Jessica Williams';
 
-$sql = 'INSERT INTO  posts (title, body, author) VALUES(:title, :body, :author)';
+// $sql = 'INSERT INTO  posts (title, body, author) VALUES(:title, :body, :author)';
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute(['title' => $title, 'body' => $body, 'author' => $author]);
+// echo 'Post Added';
+
+// UPDATE DATA
+$id = 1;
+$body = 'This is an updated post.';
+
+$sql = 'UPDATE posts SET body = :body WHERE id=:id';
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['title' => $title, 'body' => $body, 'author' => $author]);
-echo 'Post Added';
+$stmt->execute(['body' => $body,  'id' => $id]);
+echo 'Post Updated';
