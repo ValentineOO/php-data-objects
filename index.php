@@ -15,13 +15,40 @@ $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname;
 // Create a PDO instance
 $pdo = new PDO($dsn, $username, $password);
 
+// set the default query to fetch obj
+$pdo->setAttribute(pdo::ATTR_DEFAULT_FETCH_MODE, pdo::FETCH_OBJ);
+
 //PDO Query
-$stmt = $pdo->query('SELECT * FROM posts');
+// $stmt = $pdo->query('SELECT * FROM posts');
 
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    echo $row['title'] . '<br>';
+// as an array
+// while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+//     echo $row['title'] . '<br>';
+// }
+
+// as object
+// while ($row = $stmt->fetch()) {
+//     echo $row->title . '<br>';
+// }
+
+
+// PREPARED STATEMENTS
+# PREPARED STATEMENTS ( prepare & execute)
+
+// UNSAFE
+// $sql = "SELECT * FROM posts WHERE author = '$author'";
+
+// FETCH MULTIPLE POSTS
+// Positional Params (?)
+
+$author = 'Alex Smith';
+$sql = 'SELECT * FROM posts WHERE author = ?';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$author]);
+$posts = $stmt->fetchAll();
+
+// var_dump($posts);
+
+foreach ($posts as $post) {
+    echo $post->title . '<br>';
 }
-
-
-
-// $koneksi = mysqli_connect($host, $user, $pass, $db);
