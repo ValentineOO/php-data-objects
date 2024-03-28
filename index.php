@@ -70,8 +70,18 @@ $id = 1;
 // echo $post->body;
 
 //GET ROW COUNT - positional params
-$stmt = $pdo->prepare('SELECT * FROM posts WHERE author = ?');
-$stmt->execute([$author]);
-$postCount = $stmt->rowCount();
+// $stmt = $pdo->prepare('SELECT * FROM posts WHERE author = ?');
+// $stmt->execute([$author]);
+// $postCount = $stmt->rowCount();
 
-echo $postCount;
+// echo $postCount;
+
+// INSERT DATA
+$title = 'The Science of Positive Thinking';
+$body = 'Incorporating positive thinking into daily life can yield remarkable benefits. By maintaining an optimistic outlook, individuals can enhance resilience, boost mood, and improve overall well-being. Practicing gratitude, visualization, and affirmations fosters a positive mindset, empowering individuals to overcome challenges and achieve their goals with confidence and enthusiasm.';
+$author = 'Jessica Williams';
+
+$sql = 'INSERT INTO  posts (title, body, author) VALUES(:title, :body, :author)';
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['title' => $title, 'body' => $body, 'author' => $author]);
+echo 'Post Added';
