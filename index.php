@@ -62,9 +62,16 @@ $id = 1;
 // }
 
 //FETCH SINGLE POST
-$sql = 'SELECT * FROM posts WHERE id = :id';
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['id' => $id]);
-$post = $stmt->fetch();
+// $sql = 'SELECT * FROM posts WHERE id = :id';
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute(['id' => $id]);
+// $post = $stmt->fetch();
 
-echo $post->body;
+// echo $post->body;
+
+//GET ROW COUNT - positional params
+$stmt = $pdo->prepare('SELECT * FROM posts WHERE author = ?');
+$stmt->execute([$author]);
+$postCount = $stmt->rowCount();
+
+echo $postCount;
